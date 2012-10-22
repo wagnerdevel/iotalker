@@ -18,34 +18,6 @@ exports.index = function(request, response) {
 			response.send({status: {error: true, message: 'Não foi possível listar os sensores.'}});
 		}
 	});
-	
-	
-	//response.send({status: {error: false, message: null}, data: {key: 16, keypass: 12121124}});
-	/*
-	response.render('index', {title: 'urimed-middleware'});
-	
-	var update = {};
-	
-	update.nome = 'teste';
-	
-	update.idade = 22;
-	
-	console.log(update);
-	
-	//var id = mongoose.Types.ObjectId('508469746cec78182b000001');
-	/*
-	Sensor.findById('508469746cec78182b000001', function (err, s) {
-		console.log(s);
-		response.send(s);
-		// if (!err) {
-		//response.send(post);
-		// } else {
-		//response.send({error: true});
-		// }
-	});
-	
-	response.send({teste:'ok'});
-	 */
 };
 
 //
