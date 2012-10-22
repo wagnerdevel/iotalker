@@ -1,5 +1,4 @@
 
-
 module.exports.make = function make(Schema, mongoose) {
 
 	var sensorSchema = new Schema({

@@ -10,7 +10,7 @@ var app = express();
 var config = require('./config').app(app, express);
 
 //
-// Sensor (renomear para Sensors)
+// Sensor
 //
 app.resource('sensor', require('./routes/sensor'));
 

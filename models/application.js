@@ -1,5 +1,4 @@
 
-
 module.exports.make = function make(Schema, mongoose) {
 
 	var applicationSchema = new Schema({
