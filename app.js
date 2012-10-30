@@ -24,6 +24,11 @@ app.resource('application', require('./routes/application'));
 app.resource('inscribe', require('./routes/inscribe'));
 
 //
+// Communicator
+//
+app.resource('communicator', require('./routes/communicator'));
+
+//
 // INDEX - Api reference
 //
 app.get('/', routes.index);

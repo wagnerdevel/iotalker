@@ -1,8 +1,13 @@
 
 var db = null;
 
-exports.app = function(app, express, mongoose) {
+exports.dispatcher = function() {
+	return {
+		interval: 2000
+	};
+};
 
+exports.app = function(app, express, mongoose) {
 	var config = this;
 	
 	app.configure(function() {
@@ -21,14 +26,11 @@ exports.app = function(app, express, mongoose) {
 	});
 	
 	return config;
-
 };
 
 exports.db = function(mongoose) {
-	
 	if (! db)
 		db = mongoose.connect('mongodb://localhost/urimed_middleware');
 	
 	return db;
-	
 };
