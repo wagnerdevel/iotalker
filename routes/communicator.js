@@ -29,9 +29,9 @@ exports.create = function(request, response) {
 				appsId.push({_id: inscribe.app_id});
 			});
 			
-			Application.find({$or:appsId}, function (errOnFind, application) {
+			Application.find({$or:appsId}, function (errOnFind, applications) {
 				if (! errOnFind) {
-					queue.applications.push(application);
+					queue.applications = applications;
 					
 					queue.save(function(errOnSave) {
 						if (errOnSave) {

@@ -33,13 +33,7 @@ exports.show = function(request, response) {
 			if (err) {
 				response.send({status: {error: true, message: 'A app não pode ser localizada.'}});
 			} else {
-				var applicationReturn = new Application({
-					description: applicationDb.description,
-					address: applicationDb.address,
-					active: applicationDb.active
-				});
-				
-				response.send({status: {error: false, message: null}, data: {application: applicationReturn}});
+				response.send({status: {error: false, message: null}, data: {application: applicationDb}});
 			}
 		});
 	}
@@ -53,13 +47,18 @@ exports.create = function(request, response) {
 	
 	var application = new Application({
 		description: request.body.description,
-		address: request.body.address,
-		active: request.body.active
+		domain: request.body.domain,
+		port: request.body.port || 80,
+		path: request.body.path,
+		method: request.body.method || 'POST',
+		active: request.body.active || true
 	});
 	
 	if (! application.description) {
 		response.send({status: {error: true, message: 'A app não pode ser adicionanda. Informe a descrição da app.'}});
-	} else if (application.description.length < 2) {
+	} else if (! application.domain) {
+		response.send({status: {error: true, message: 'A app não pode ser adicionanda. O domínio da app é inválido.'}});
+	} else if (! application.path) {
 		response.send({status: {error: true, message: 'A app não pode ser adicionanda. A descrição da app é inválida.'}});
 	} else {
 		application.save(function(err, room) {
@@ -83,8 +82,17 @@ exports.update = function(request, response) {
 	if (request.body.description)
 		update.description = request.body.description;
 	
-	if (request.body.address)
-		update.address = request.body.address;
+	if (request.body.domain)
+		update.domain = request.body.domain;
+	
+	if (request.body.port)
+		update.port = request.body.port;
+	
+	if (request.body.path)
+		update.path = request.body.path;
+	
+	if (request.body.method)
+		update.method = request.body.method;
 	
 	if (request.body.active)
 		update.active = request.body.active;
@@ -98,13 +106,12 @@ exports.update = function(request, response) {
 			if (err) {
 				response.send({status: {error: true, message: 'A app não pode ser localizado.'}});
 			} else {
-				var applicationReturn = new Application({
-					description: applicationDb.description,
-					address: applicationDb.address,
-					active: applicationDb.active
-				});
 				
-				response.send({status: {error: false, message: null}, data: {application: applicationReturn}});
+				/*
+				 * TO-DO: atualizar as aplicacoes que estao na queue;
+				 */
+				
+				response.send({status: {error: false, message: null}, data: {application: applicationDb}});
 			}
 		});
 	}
@@ -128,4 +135,3 @@ exports.destroy = function(request, response) {
 		});
 	}
 };
-
