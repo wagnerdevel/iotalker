@@ -50,36 +50,45 @@ function dispatcherRest(domain, port, path, method, data) {
 }
 
 function dispatcher() {
-	
 	Queue.find({}, function (err, queues) {
 		if (! err && queues.length > 0) {
-			queues.forEach(function (queue) {
+			queues.forEach(function (queue, ui) {
+				var deleted = false;
+				
 				queue.applications.forEach(function (app, index) {
-					// var result = dispatcherRest(app.domain, app.port, app.path, app.method, queue.data);
+					var result = dispatcherRest(app.domain, app.port, app.path, app.method, queue.data);
 					
-					// if (result)
-						// queue.applications.splice(index, 1);
+					if (result) {
+						queue.applications.splice(index, 1);
+						
+						deleted = true;
+						
+						console.log('from sensor: '+ queue.sensor_id +' to app_id: '+ app._id);
+					}
 				});
 				
-				if (queue.applications.length > 0) {
-					queue.data.temperatura = 333;
+				if (queue.applications.length > 0 && deleted) {
+					var upsertData = queue.toObject();
 					
-					queue.update({$set: queue}, {});
+					delete upsertData._id;
 					
-					// Queue.findByIdAndUpdate(queue._id, {$set: queue}, function (error) {
-					// 	if (error) {
-					// 		console.log('Um erro ocorreu: '+ error);
-					// 	}
-					// });
+					Queue.update({_id: queue.id}, upsertData, {upsert: true}, function (error) {
+						if (error) {
+							console.log('Um erro ocorreu: '+ error);
+						}
+					});
+				} else if (deleted) {
+					Queue.findByIdAndRemove(queue.id, function (err) {
+						if (err) {
+							console.log('Um erro ocorreu para remover a queue. Possível recursão ocorrerá.');
+						}
+					});
 				}
-				
-				console.log(queue);
-				console.log();
 			});
 		}
 	});
 	
-	//setTimeout(dispatcher, config.interval);
+	setTimeout(dispatcher, config.interval);
 }
 
 dispatcher();
