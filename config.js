@@ -3,7 +3,7 @@ var db = null;
 
 exports.dispatcher = function() {
 	return {
-		interval: 2000
+		interval: 5000
 	};
 };
 
