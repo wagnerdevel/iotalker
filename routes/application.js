@@ -45,6 +45,10 @@ exports.show = function(request, response) {
 exports.create = function(request, response) {
 	response.contentType('application/json');
 	
+	if (typeof request.body.active === 'string') {
+		request.body.active = (request.body.active == 'false' ? false : true);
+	}
+	
 	var application = new Application({
 		description: request.body.description,
 		domain: request.body.domain,
@@ -94,8 +98,13 @@ exports.update = function(request, response) {
 	if (request.body.method)
 		update.method = request.body.method;
 	
-	if (request.body.active)
+	if (request.body.active) {
+		if (typeof request.body.active === 'string') {
+			request.body.active = (request.body.active == 'false' ? false : true);
+		}
+		
 		update.active = request.body.active;
+	}
 	
 	if (! request.params.application) {
 		response.send({status: {error: true, message: 'Informe a key da app.'}});

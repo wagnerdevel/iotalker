@@ -51,6 +51,10 @@ exports.show = function(request, response) {
 exports.create = function(request, response) {
 	response.contentType('application/json');
 	
+	if (typeof request.body.active === 'string') {
+		request.body.active = (request.body.active == 'false' ? false : true);
+	}
+	
 	var sensor = new Sensor({
 		description: request.body.description,
 		status: request.body.status,
@@ -86,8 +90,13 @@ exports.update = function(request, response) {
 	if (request.body.status)
 		update.status = request.body.status;
 	
-	if (request.body.active)
+	if (request.body.active) {
+		if (typeof request.body.active === 'string') {
+			request.body.active = (request.body.active == 'false' ? false : true);
+		}
+		
 		update.active = request.body.active;
+	}
 	
 	if (! request.params.sensor) {
 		response.send({status: {error: true, message: 'Informe a key do sensor.'}});
