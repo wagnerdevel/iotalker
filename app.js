@@ -9,6 +9,37 @@ var app = express();
 var config = require('./config').app(app, express);
 
 //
+// Habilita:
+// Cross-Origin Resource Sharing (CORS) e
+// Preflight Request.
+// http://enable-cors.org/
+//
+app.all('*', function(request, response, next) {
+	if (request.method.toUpperCase() === 'OPTIONS') {
+		response.writeHead(
+			'204',
+			'No Content',
+			{
+				'access-control-allow-origin': '*',
+				'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+				'access-control-allow-headers': 'content-type, accept',
+				'access-control-max-age': 10, // seconds.
+				'content-length': 0,
+				'x-powered-by': 'urimed-middleware'
+			}
+		);
+
+		return response.end();
+	}
+	
+	response.header('Access-Control-Allow-Origin', '*');
+	response.header('Access-Control-Allow-Headers', 'X-Requested-With');
+	response.header('X-Powered-By', 'urimed-middleware');
+	
+	next();
+});
+
+//
 // Sensor
 //
 app.resource('sensor', require('./routes/sensor'));
