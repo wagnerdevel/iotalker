@@ -63,7 +63,7 @@ exports.create = function(request, response) {
 	} else if (! application.domain) {
 		response.send({status: {error: true, message: 'A app não pode ser adicionanda. O domínio da app é inválido.'}});
 	} else if (! application.path) {
-		response.send({status: {error: true, message: 'A app não pode ser adicionanda. A descrição da app é inválida.'}});
+		response.send({status: {error: true, message: 'A app não pode ser adicionanda. O path da app é inválido.'}});
 	} else {
 		application.save(function(err, room) {
 			if (err) {
