@@ -33,13 +33,7 @@ exports.show = function(request, response) {
 			if (err) {
 				response.send({status: {error: true, message: 'O sensor não pode ser localizado.'}});
 			} else {
-				var sensorReturn = new Sensor({
-					description: sensorDb.description,
-					status: sensorDb.status,
-					active: sensorDb.active
-				});
-				
-				response.send({status: {error: false, message: null}, data: {sensor: sensorReturn}});
+				response.send({status: {error: false, message: null}, data: {sensor: sensorDb}});
 			}
 		});
 	}
@@ -103,6 +97,11 @@ exports.update = function(request, response) {
 	} else if (request.body.description && update.description.length < 2) {
 		response.send({status: {error: true, message: 'O sensor não pode ser atualizado. A descrição do sensor é inválida.'}});
 	} else {
+		
+		//
+		// editar tambem em queue
+		//
+		
 		Sensor.findByIdAndUpdate(request.params.sensor, {$set: update}, function (err, sensorDb) {
 			if (err) {
 				response.send({status: {error: true, message: 'O sensor não pode ser localizado.'}});
@@ -128,6 +127,10 @@ exports.destroy = function(request, response) {
 	if (! request.params.sensor) {
 		response.send({status: {error: true, message: 'Informe a key do sensor.'}});
 	} else {
+		//
+		// remover tambem em inscribe e queue
+		//
+		
 		Sensor.findByIdAndRemove(request.params.sensor, function (err, sensorDb) {
 			if (err) {
 				response.send({status: {error: true, message: 'O sensor não pode ser localizado.'}});
