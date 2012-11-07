@@ -21,7 +21,7 @@ exports.index = function (request, response) {
 };
 
 //
-// view
+// view (retorna todas as apps que assinam um determinado sensor)
 //
 exports.show = function(request, response) {
 	response.contentType('application/json');
@@ -29,7 +29,7 @@ exports.show = function(request, response) {
 	if (! request.params.inscribe) {
 		response.send({status: {error: true, message: 'Informe a key da app.'}});
 	} else {
-		Inscribe.find({app_id: request.params.inscribe}, function (err, sensors) {
+		Inscribe.find({sensor_id: request.params.inscribe}, function (err, sensors) {
 			if (err) {
 				response.send({status: {error: true, message: 'O sensor não pode ser localizado.'}});
 			} else {
@@ -45,18 +45,24 @@ exports.show = function(request, response) {
 exports.create = function(request, response) {
 	response.contentType('application/json');
 	
-	var inscribe = new Inscribe({
-		app_id: request.body.app_id,
-		sensor_id: request.body.sensor_id
-	});
-	
-	inscribe.save(function(err, room) {
-		if (err) {
-			response.send({status: {error: true, message: 'Não foi possível efetuar a assinatura. Erro no servidor.'}});
-		} else {
-			response.send({status: {error: false, message: null}, data: {key: room.id}});
-		}
-	});
+	if (! request.body.app_id) {
+		response.send({status: {error: true, message: 'Informe o ID da app.'}});
+	} else if (! request.body.sensor_id) {
+		response.send({status: {error: true, message: 'Informe o ID do sensor.'}});
+	} else {
+		var inscribe = new Inscribe({
+			app_id: request.body.app_id,
+			sensor_id: request.body.sensor_id
+		});
+		
+		inscribe.save(function(err, room) {
+			if (err) {
+				response.send({status: {error: true, message: 'Não foi possível efetuar a assinatura. Erro no servidor.'}});
+			} else {
+				response.send({status: {error: false, message: null}, data: {key: room.id}});
+			}
+		});
+	}
 };
 
 //
