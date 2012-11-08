@@ -127,6 +127,7 @@ exports.destroy = function(request, response) {
 	if (! request.params.sensor) {
 		response.send({status: {error: true, message: 'Informe a key do sensor.'}});
 	} else {
+		
 		//
 		// remover tambem em inscribe e queue
 		//
