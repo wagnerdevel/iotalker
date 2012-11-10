@@ -1,6 +1,6 @@
 
 var express = require('express');
-var routes = require('./routes');
+var controllers = require('./controllers');
 var http = require('http');
 var resource = require('express-resource');
 
@@ -38,29 +38,29 @@ app.all('*', function(request, response, next) {
 });
 
 //
-// Sensor
+// Publishers
 //
-app.resource('sensor', require('./routes/sensor'));
+app.resource('publisher', require('./controllers/publisher'));
 
 //
-// Apps
+// Subscribers
 //
-app.resource('application', require('./routes/application'));
+app.resource('subscriber', require('./controllers/subscriber'));
 
 //
 // Inscribes
 //
-app.resource('inscribe', require('./routes/inscribe'));
+app.resource('contract', require('./controllers/contract'));
 
 //
 // Communicator
 //
-app.resource('communicator', require('./routes/communicator'));
+app.resource('communicator', require('./controllers/communicator'));
 
 //
 // INDEX - Api reference
 //
-app.get('/', routes.index);
+app.get('/', controllers.index);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));

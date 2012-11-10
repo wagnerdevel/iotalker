@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 var db = require('../config').db(mongoose);
-var Application = require('../models/application.js').make(Schema, mongoose);
-var Queue = require('../models/queue.js').make(Schema, mongoose, Application);
-var Inscribe = require('../models/inscribe.js').make(Schema, mongoose);
+var Subscriber = require('../models/subscriber.js').make(Schema, mongoose);
+var Queue = require('../models/queue.js').make(Schema, mongoose);
+var Contract = require('../models/contract.js').make(Schema, mongoose);
 
 //
 // add
@@ -13,31 +13,31 @@ var Inscribe = require('../models/inscribe.js').make(Schema, mongoose);
 exports.create = function(request, response) {
 	response.contentType('application/json');
 	
-	Inscribe.find({sensor_id: request.body.id}, function (err, inscribeApplications) {
-		if (! err && inscribeApplications.length > 0) {
+	Contract.find({publisher_id: request.body.id}, function (err, contractSubscribers) {
+		if (! err && contractSubscribers.length > 0) {
 			var queue = new Queue({
-				sensor_id: request.body.id,
+				publisher_id: request.body.id,
 				datetime: new Date(),
 				data: request.body.data,
 				ip: request.body.ip,
-				applications: []
+				subscribers: []
 			});
 			
-			var appsId = [];
+			var subscribersId = [];
 			
-			inscribeApplications.forEach(function (inscribe) {
-				appsId.push({_id: inscribe.app_id});
+			contractSubscribers.forEach(function (contract) {
+				subscribersId.push({_id: contract.subscribe_id});
 			});
 			
-			Application.find({$or:appsId}, function (errOnFind, applications) {
+			Subscriber.find({$or:subscribersId}, function (errOnFind, subscribers) {
 				if (! errOnFind) {
-					queue.applications = applications;
+					queue.subscribers = subscribers;
 					
 					queue.save(function(errOnSave) {
 						if (errOnSave) {
 							response.send({status: {error: true, message: 'Não foi possível publicar a mensagem. Erro no servidor (1).'}});
 						} else {
-							response.send({status: {error: false, message: null}, data: {applications: appsId}});
+							response.send({status: {error: false, message: null}, data: {subscribers: subscribersId}});
 						}
 					});
 				} else {
@@ -45,7 +45,7 @@ exports.create = function(request, response) {
 				}
 			});
 		} else {
-			response.send({status: {error: false, message: 'Nenhuma aplicação assinante do sensor'}, data: {applications: []}});
+			response.send({status: {error: false, message: 'Nenhum assinante para esta publicação'}, data: {subscribers: []}});
 		}
 	});
 };

@@ -5,11 +5,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var db = require('./config').db(mongoose);
 var config = require('./config').dispatcher();
-var Application = require('./models/application.js').make(Schema, mongoose);
-var Queue = require('./models/queue.js').make(Schema, mongoose, Application);
+var Subscriber = require('./models/subscriber.js').make(Schema, mongoose);
+var Queue = require('./models/queue.js').make(Schema, mongoose);
 
 /**
- * Envia os dados de um sensor para uma aplicacao assinante
+ * Envia os dados de um publicante para um assinante
  *
  * @param String domain [description]
  * @param Integer port Número da porta
@@ -55,19 +55,25 @@ function dispatcher() {
 			queues.forEach(function (queue, ui) {
 				var deleted = false;
 				
-				queue.applications.forEach(function (app, index) {
-					var result = dispatcherRest(app.domain, app.port, app.path, app.method, queue.data);
+				queue.subscribers.forEach(function (subscriber, index) {
+					var result = dispatcherRest(
+						subscriber.domain,
+						subscriber.port,
+						subscriber.path,
+						subscriber.method,
+						queue.data
+					);
 					
 					if (result) {
-						queue.applications.splice(index, 1);
+						queue.subscribers.splice(index, 1);
 						
 						deleted = true;
 						
-						console.log('from sensor: '+ queue.sensor_id +' to app_id: '+ app._id);
+						console.log('from publisher_id: '+ queue.publisher_id +' to subscriber_id: '+ subscriber._id);
 					}
 				});
 				
-				if (queue.applications.length > 0 && deleted) {
+				if (queue.subscribers.length > 0 && deleted) {
 					var upsertData = queue.toObject();
 					
 					delete upsertData._id;

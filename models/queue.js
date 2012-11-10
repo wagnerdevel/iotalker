@@ -1,12 +1,12 @@
 
-module.exports.make = function make(Schema, mongoose, Application) {
+module.exports.make = function make(Schema, mongoose) {
 	
 	var queueSchema = new Schema({
-		sensor_id: String,
+		publisher_id: String,
 		datetime: Date,
 		data: Object,
 		ip: String,
-		applications: []
+		subscribers: []
 	});
 	
 	return mongoose.model('Queue', queueSchema);
