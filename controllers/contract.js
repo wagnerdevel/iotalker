@@ -33,7 +33,7 @@ exports.show = function(request, response) {
 			if (err) {
 				response.send({status: {error: true, message: 'O publicante não pode ser localizado.'}});
 			} else {
-				response.send({status: {error: false, message: null}, data: {publisher: publishers}});
+				response.send({status: {error: false, message: null}, data: {publishers: publishers}});
 			}
 		});
 	}
@@ -47,7 +47,7 @@ exports.create = function(request, response) {
 	
 	if (! request.body.subscriber_id) {
 		response.send({status: {error: true, message: 'Informe o ID do assinante.'}});
-	} else if (! request.body.subscriber_id) {
+	} else if (! request.body.publisher_id) {
 		response.send({status: {error: true, message: 'Informe o ID do publicante.'}});
 	} else {
 		var contract = new Contract({

@@ -26,7 +26,7 @@ exports.create = function(request, response) {
 			var subscribersId = [];
 			
 			contractSubscribers.forEach(function (contract) {
-				subscribersId.push({_id: contract.subscribe_id});
+				subscribersId.push({_id: contract.subscriber_id});
 			});
 			
 			Subscriber.find({$or:subscribersId}, function (errOnFind, subscribers) {

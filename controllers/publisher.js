@@ -15,7 +15,7 @@ exports.index = function(request, response) {
 		if (! err) {
 			response.send({status: {error: false, message: null}, data: {publishers: publishersResult}});
 		} else {
-			response.send({status: {error: true, message: 'Não foi possível listar os publicadores.'}});
+			response.send({status: {error: true, message: 'Não foi possível listar os publicantes.'}});
 		}
 	});
 };
@@ -27,11 +27,11 @@ exports.show = function(request, response) {
 	response.contentType('application/json');
 	
 	if (! request.params.publisher) {
-		response.send({status: {error: true, message: 'Informe a key do publicador.'}});
+		response.send({status: {error: true, message: 'Informe a key do publicante.'}});
 	} else {
 		Publisher.findById(request.params.publisher, function (err, publisherDb) {
 			if (err) {
-				response.send({status: {error: true, message: 'O publicador não pode ser localizado.'}});
+				response.send({status: {error: true, message: 'O publicante não pode ser localizado.'}});
 			} else {
 				response.send({status: {error: false, message: null}, data: {publisher: publisherDb}});
 			}
@@ -56,13 +56,13 @@ exports.create = function(request, response) {
 	});
 	
 	if (! publisher.description) {
-		response.send({status: {error: true, message: 'O publicador não pode ser adicionando. Informe a descrição.'}});
+		response.send({status: {error: true, message: 'O publicante não pode ser adicionando. Informe a descrição.'}});
 	} else if (publisher.description.length < 2) {
-		response.send({status: {error: true, message: 'O publicador não pode ser adicionando. A descrição é inválida.'}});
+		response.send({status: {error: true, message: 'O publicante não pode ser adicionando. A descrição é inválida.'}});
 	} else {
 		publisher.save(function(err, room) {
 			if (err) {
-				response.send({status: {error: true, message: 'O publicador não pode ser adicionando. Erro no servidor.'}});
+				response.send({status: {error: true, message: 'O publicante não pode ser adicionando. Erro no servidor.'}});
 			} else {
 				response.send({status: {error: false, message: null}, data: {key: room.id}});
 			}
@@ -93,9 +93,9 @@ exports.update = function(request, response) {
 	}
 	
 	if (! request.params.publisher) {
-		response.send({status: {error: true, message: 'Informe a key do publicador.'}});
+		response.send({status: {error: true, message: 'Informe a key do publicante.'}});
 	} else if (request.body.description && update.description.length < 2) {
-		response.send({status: {error: true, message: 'O publicador não pode ser atualizado. A descrição é inválida.'}});
+		response.send({status: {error: true, message: 'O publicante não pode ser atualizado. A descrição é inválida.'}});
 	} else {
 		
 		//
@@ -104,7 +104,7 @@ exports.update = function(request, response) {
 		
 		Publisher.findByIdAndUpdate(request.params.publisher, {$set: update}, function (err, publisherDb) {
 			if (err) {
-				response.send({status: {error: true, message: 'O publicador não pode ser localizado.'}});
+				response.send({status: {error: true, message: 'O publicante não pode ser localizado.'}});
 			} else {
 				response.send({status: {error: false, message: null}, data: {publisher: publisherDb}});
 			}
@@ -119,7 +119,7 @@ exports.destroy = function(request, response) {
 	response.contentType('application/json');
 	
 	if (! request.params.publisher) {
-		response.send({status: {error: true, message: 'Informe a key do publicador.'}});
+		response.send({status: {error: true, message: 'Informe a key do publicante.'}});
 	} else {
 		
 		//
@@ -128,7 +128,7 @@ exports.destroy = function(request, response) {
 		
 		Publisher.findByIdAndRemove(request.params.publisher, function (err) {
 			if (err) {
-				response.send({status: {error: true, message: 'O publicador não pode ser localizado.'}});
+				response.send({status: {error: true, message: 'O publicante não pode ser localizado.'}});
 			} else {
 				response.send({status: {error: false, message: null}});
 			}

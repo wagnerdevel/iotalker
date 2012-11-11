@@ -20,7 +20,7 @@ var Queue = require('./models/queue.js').make(Schema, mongoose);
  */
 function dispatcherRest(domain, port, path, method, data) {
 	data = querystring.stringify(data);
-
+	
 	var options = {
 		host: domain,
 		port: port,
@@ -52,7 +52,7 @@ function dispatcherRest(domain, port, path, method, data) {
 function dispatcher() {
 	Queue.find({}, function (err, queues) {
 		if (! err && queues.length > 0) {
-			queues.forEach(function (queue, ui) {
+			queues.forEach(function (queue) {
 				var deleted = false;
 				
 				queue.subscribers.forEach(function (subscriber, index) {
