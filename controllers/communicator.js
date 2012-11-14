@@ -20,6 +20,7 @@ exports.create = function(request, response) {
 				datetime: new Date(),
 				data: request.body.data,
 				ip: request.body.ip,
+				error: false,
 				subscribers: []
 			});
 			
