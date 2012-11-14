@@ -3,7 +3,9 @@ var db = null;
 
 exports.dispatcher = function() {
 	return {
-		interval: 200
+		interval: 200,
+		queuesAmaunt: 20,
+		timeNextAttempt: { min: 8000, max: 16000 }
 	};
 };
 
