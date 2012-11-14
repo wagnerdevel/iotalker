@@ -6,6 +6,7 @@ module.exports.make = function make(Schema, mongoose) {
 		datetime: Date,
 		data: Object,
 		ip: String,
+		error: Boolean,
 		subscribers: []
 	});
 	
