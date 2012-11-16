@@ -13,7 +13,7 @@ exports.index = function (request, response) {
 	
 	Contract.find({}, function (err, contractsResult) {
 		if (! err) {
-			response.send({status: {error: false, message: null}, data: {contract: contractsResult}});
+			response.send({status: {error: false, message: null}, data: {contracts: contractsResult}});
 		} else {
 			response.send({status: {error: true, message: 'Não foi possível listar os contratos de assinaturas.'}});
 		}
@@ -29,11 +29,11 @@ exports.show = function(request, response) {
 	if (! request.params.contract) {
 		response.send({status: {error: true, message: 'Informe a key do publicante.'}});
 	} else {
-		Contract.find({publisher_id: request.params.contract}, function (err, publishers) {
+		Contract.find({publisher_id: request.params.contract}, function (err, contracts) {
 			if (err) {
 				response.send({status: {error: true, message: 'O publicante não pode ser localizado.'}});
 			} else {
-				response.send({status: {error: false, message: null}, data: {publishers: publishers}});
+				response.send({status: {error: false, message: null}, data: {contracts: contracts}});
 			}
 		});
 	}
