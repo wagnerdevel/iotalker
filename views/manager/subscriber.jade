@@ -1,0 +1,112 @@
+extends ../layout
+
+block content
+
+  div(id='subscriber-add-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Add Subscriber
+    
+    div.modal-body
+      div#result-add-subscriber
+      
+      form.form-horizontal
+        div.control-group
+          label(class='control-label', for='input-description') Description
+          div.controls
+            input(type='text', id='input-description', name='description')
+      
+        div.control-group
+          label(class='control-label', for='input-domain') Domain
+          div.controls
+            input(type='text', id='input-domain', name='domain', placeholder='192.168.10.2')
+        
+        div.control-group
+          label(class='control-label', for='input-port') Port
+          div.controls
+            input(type='text', id='input-port', name='port', placeholder='8080')
+      
+        div.control-group
+          label(class='control-label', for='input-path') Path
+          div.controls
+            input(type='text', id='input-path', name='path', placeholder='/pacient/report.json')
+      
+        div.control-group
+          label(class='control-label', for='input-method') HTTP Method
+          div.controls
+            input(type='text', id='input-method', name='method', placeholder='POST')
+        
+        div.control-group
+          div.controls
+            label.checkbox
+              input(type='checkbox', id='input-active', checked='checked')
+              | Active
+    
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-primary', id='btn-add-subscriber') Save Subscriber
+
+
+
+
+  div(id='subscriber-edit-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Edit Subcriber
+  
+    div.modal-body
+      div#result-edit-subscriber
+    
+      form.form-horizontal
+        div
+          input(type='hidden', value='', id='input-id-edit')
+        
+        div.control-group
+          label(class='control-label', for='input-description-edit') Description
+          
+          div.controls
+            input(type='text', id='input-description-edit', name='description')
+      
+        div.control-group
+          label(class='control-label', for='input-domain-edit') Domain
+          div.controls
+            input(type='text', id='input-domain-edit', name='domain', placeholder='192.168.10.2')
+        
+        div.control-group
+          label(class='control-label', for='input-port-edit') Port
+          div.controls
+            input(type='text', id='input-port-edit', name='port', placeholder='8080')
+      
+        div.control-group
+          label(class='control-label', for='input-path-edit') Path
+          div.controls
+            input(type='text', id='input-path-edit', name='path', placeholder='/pacient/report.xml')
+        
+        div.control-group
+          label(class='control-label', for='input-method-edit') HTTP Method
+          div.controls
+            input(type='text', id='input-method-edit', name='method', placeholder='POST')
+        
+        div.control-group
+          div.controls
+            label.checkbox
+              input(type='checkbox', id='input-active-edit', checked='checked')
+              | Active
+  
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-primary', id='btn-edit-subscriber') Save Subscriber
+
+
+
+  div(id='subscriber-rm-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Delete Subscriber
+    
+    div.modal-body
+      p Do you really want to delete selected subscribers?
+    
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-danger', id='btn-rm-subscriber') Yes, Delete Subscriber

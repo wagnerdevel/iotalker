@@ -1,0 +1,75 @@
+extends ../layout
+
+block content
+  div(id='publisher-add-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') x
+      h4 Add Publisher
+    div.modal-body
+      div#result-add-publisher
+      form.form-horizontal
+        div.control-group
+          label(class='control-label', for='input-description') Description
+          div.controls
+            input(type='text', id='input-description', name='description', placeholder='Temperature Sensor')
+        
+        div.control-group
+          label(class='control-label', for='input-status') Status
+          div.controls
+            input(type='text', id='input-status', name='status')
+        
+        div.control-group
+          div.controls
+            label(class='checkbox')
+              input(type='checkbox', id='input-active', checked='checked') 
+              | Active
+      
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-primary', id='btn-add-publisher') Save Publisher
+
+
+  div(id='publisher-edit-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Edit Publisher
+    
+    div.modal-body
+      div#result-edit-publisher
+      
+      form.form-horizontal
+        div
+          input(type='hidden', value='', id='input-id-edit')
+        
+        div.control-group
+          label(class='control-label', for='input-description-edit') Description
+          div.controls
+            input(type='text', id='input-description-edit', name='description', placeholder='Temperature Sensor')
+        
+        div.control-group
+          label(class='control-label', for='input-status-edit') Status
+          div.controls
+            input(type='text', id='input-status-edit', name='status')
+      
+        div.control-group
+          div.controls
+            label.checkbox
+              input(type='checkbox', id='input-active-edit', checked='checked') 
+              | Active
+  
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-primary', id='btn-edit-publisher') Save Publisher
+
+
+  div(id='publisher-rm-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Delete Publisher
+    
+    div.modal-body
+      p Do you really want to delete selected publishers?
+    
+    div.modal-footer
+      button(class='btn', data-dismiss='modal', aria-hidden='true') Cancel
+      button(class='btn btn-danger', id='btn-rm-publisher') Yes, Delete Publishers

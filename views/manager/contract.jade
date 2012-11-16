@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+
+  div(id='contracts-modal', class='modal hide fade', role='dialog', aria-hidden='true')
+    div.modal-header
+      button(type='button', class='close', data-dismiss='modal', aria-hidden='true') ×
+      h4 Signing Contracts
+    
+    div.modal-body
+      div#result-add-contract
+    
+      div.listbox
+        ul(class='list', id='result-subscribers')
+    
+    div.modal-footer
+      button(class='btn btn-primary', data-dismiss='modal', aria-hidden='true') Close

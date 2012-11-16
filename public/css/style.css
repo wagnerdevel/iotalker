@@ -1,0 +1,158 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+	color: #333;
+	font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size: 11px;
+	margin: 0;
+	height: 100%;
+	background: #e0e0e0;
+}
+
+a {
+	color: #8BA543;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a img {
+	border:none;
+}
+
+ul {
+	list-style: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.flexigrid div.fbutton span {
+	padding: 0;
+}
+
+.flexigrid div.fbutton span i {
+	margin-top: -1px;
+}
+
+.flexigrid div.hDiv table {
+	border-collapse: inherit;
+}
+
+.modal-backdrop {
+	background-color: #ddd;
+}
+
+#page {
+	width: 900px;
+	margin: 50px auto 50px;
+	padding: 36px 40px 60px;
+	text-align: center;
+	border-top: 3px solid #6A95B9;
+	border-bottom: 3px solid #6A95B9;
+	background: #fff;
+	
+	box-shadow: 0 0 18px #555;
+	-webkit-box-shadow: 0px 0px 18px rgba(50, 50, 50, 0.7);
+	-moz-box-shadow: 0px 0px 18px rgba(50, 50, 50, 0.7);
+	box-shadow: 0px 0px 18px rgba(50, 50, 50, 0.7);
+}
+
+#page #header {
+	height: 72px;
+	margin-bottom: 28px;
+	border-bottom: 3px solid #0088CC;
+	text-align: left;
+}
+
+#header .logo {
+	float: left;
+}
+
+#header .main-menu {
+	float: right;
+	margin-top: 12px;
+}
+
+#header .main-menu li {
+	float: left;
+}
+
+#header .main-menu li a {
+	display: inline-block;
+	color: #055498;
+	font-size: 12px;
+	padding: 6px 10px;
+}
+
+#header .main-menu li.active a {
+	background: #6a95b9;
+	color: #fff;
+	border-radius: 3px;
+}
+
+
+/*
+ *
+ *
+ * LISTBOX
+ * 
+ *
+ */
+ 
+.listbox label {
+	float: left;
+}
+
+.listbox .list {
+	height: 250px;
+	margin: 0;
+	overflow: auto;
+	overflow-x: hidden;
+	border: 1px solid #ccc;
+	list-style: none;
+	background: #eee;
+}
+
+.listbox .list li {
+	color: #555;
+	border-bottom: 1px solid #fff;
+	background: url(images/ui-check-box.png) 3px 5px no-repeat;
+}
+
+.listbox .list li:hover {
+	background-color: #fff;
+}
+
+.listbox .list li.selected {
+	color: #fff;
+	background: url(images/ui-check-box.png) 3px -43px no-repeat #5488BD;
+}
+
+.list li label {
+	padding: 0px 0px 0px 22px;
+	cursor: pointer;
+	display: block;
+	float: none;
+	width: auto;
+	height: 26px;
+	font-size: 11px;
+	line-height: 25px;
+	white-space: nowrap;
+	margin-bottom: 0px;
+}
+
+.listbox .list li input {
+	margin-right: 3px;
+	display: inline-table;
+	position: absolute;
+	margin-top: 2px;
+	margin-left: -17px;
+	display: none;
+}
