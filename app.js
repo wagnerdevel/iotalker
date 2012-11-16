@@ -58,6 +58,11 @@ app.resource('contract', require('./controllers/contract'));
 app.resource('communicator', require('./controllers/communicator'));
 
 //
+// Manager
+//
+app.resource('manager', require('./controllers/manager'));
+
+//
 // INDEX - Api reference
 //
 app.get('/', controllers.index);
